@@ -5,6 +5,16 @@ Repository containing information on using geographical data.
 See [wiki](https://github.com/ElyseAndren/Geo-Data/wiki) for walk-throughs (listed below).
 
 ***
+### [Functions](https://github.com/ElyseAndren/Geo-Data/wiki/Functions) 
+
+BigQuery User Defined Functions (UDFs) for geo processes.
+
+* [Street Standardization](https://github.com/ElyseAndren/Geo-Data/wiki/UDFs#address-standardization)
+* [Zip Cleansing](https://github.com/ElyseAndren/Geo-Data/wiki/UDFs#address-standardization)
+* [Generate Coordinate Linestring](https://github.com/ElyseAndren/Geo-Data/wiki/UDFs#generate-coordinate-linestring)
+* [Calculate Bearing](https://github.com/ElyseAndren/Geo-Data/wiki/UDFs#bearing)
+
+***
 ### [Census Data](https://github.com/ElyseAndren/Geo-Data/wiki/Census-Data) 
 
 Walks through U.S. Census Bureau Data.
@@ -19,17 +29,6 @@ Walks through U.S. Census Bureau Data.
 * [Calling Census API](https://github.com/ElyseAndren/Geo-Data/wiki/Census-Data#calling-census-api)
 * [Urbanization Index](https://github.com/ElyseAndren/Geo-Data/wiki/Census-Data#urbanization-index)
 * [Geocoding Addresses](https://github.com/ElyseAndren/Geo-Data/wiki/Census-Data#geocoding-addresses)
-
-
-
-***
-### [Functions](https://github.com/ElyseAndren/Geo-Data/wiki/Functions) 
-
-BigQuery User Defined Functions (UDFs) for geo processes.
-
-* [Street Standardization]()
-* [Generate Coordinate Linestring]()
-* [Bearing]()
 
 ***
 ### [Hurricane Data](https://github.com/ElyseAndren/Geo-Data/wiki/Hurricane-Data) 
