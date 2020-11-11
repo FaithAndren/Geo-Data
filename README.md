@@ -1,11 +1,3 @@
-# Geo-Data
-Information on using geographical data. 
-
-:
-* [Census Data](https://github.com/ElyseAndren/Geo-Data/wiki/Census-Data) 
-* [Functions](https://github.com/ElyseAndren/Geo-Data/wiki/Functions) 
-
-
 # Geographical Data
 
 Repository containing information on using geographical data.
