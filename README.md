@@ -5,7 +5,7 @@ Repository containing information on using geographical data.
 See [wiki](https://github.com/ElyseAndren/Geo-Data/wiki) for walk-throughs (listed below).
 
 ***
-### [Functions](https://github.com/ElyseAndren/Geo-Data/wiki/Functions) 
+### [Functions](https://github.com/ElyseAndren/Geo-Data/wiki/UDFs) 
 
 BigQuery User Defined Functions (UDFs) for geo processes.
 
