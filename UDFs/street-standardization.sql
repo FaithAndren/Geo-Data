@@ -230,19 +230,21 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
 
                             REGEXP_REPLACE(
                               REGEXP_REPLACE(
-                                REGEXP_REPLACE(UPPER(
-                                  CONCAT(
-                                    STRT
-                                    , CASE 
-                                        WHEN REGEXP_CONTAINS(TRIM(STRT2), '^[0-9]+') 
-                                          THEN CONCAT(' # ', STRT2)
-                                        WHEN TRIM(STRT2) != '' 
-                                          THEN CONCAT(' ', STRT2)
-                                      ELSE '' END
-                                  )
-                                ),'\\.','')
+                                REGEXP_REPLACE(
+                                  REGEXP_REPLACE(UPPER(
+                                    CONCAT(
+                                      STRT
+                                      , CASE 
+                                          WHEN REGEXP_CONTAINS(TRIM(STRT2), '^[0-9]+') 
+                                            THEN CONCAT(' # ', STRT2)
+                                          WHEN TRIM(STRT2) != '' 
+                                            THEN CONCAT(' ', STRT2)
+                                        ELSE '' END
+                                    )
+                                  ),'\\.','')
                                 , r"#", ' # ')
                               , ',', ' ')
+                            , r'[\s][\s]+', ' ')
 
                           -- Note, there is currently a bug in GCP where
                           -- this will not work if there are two side by side
