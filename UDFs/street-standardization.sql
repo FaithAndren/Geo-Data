@@ -1,23 +1,23 @@
-CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING) AS 
+CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS 
 (
   ( /*
     This UDF standardizes the address street field(s), line 1 and line 2,
-		to increase match rate when joining postal address data from
-		two different sources.
-    INPUT:
-      CONCAT(
-        ADDR_LINE_1
-        , CASE WHEN TRIM(ADDR_LINE_2) != ''
-          THEN CONCAT(' # ', ADDR_LINE_2) ELSE '' END
-        )
+    to increase match rate when joining postal address data from
+    two different sources.
+	  
+    TWO INPUTS: 
+      ADDR_LINE_1
+      , ADDR_LINE_2 ('' if none)
+	  
     Note:
       This does not use all of the standardization rules
       laid out by the usps, so it should **not** be used
       as a mailing address. It's only meant to join addresses
       from two different sources together.
+	  
       E.g.:
         We abbreviate all directionals and suffixes which is not how to
-				properly standardize addresses.
+        properly standardize addresses.
       */
       WITH 
         SFX AS
@@ -230,7 +230,13 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING) AS
 
                             REGEXP_REPLACE(
                               REGEXP_REPLACE(
-                                REGEXP_REPLACE(UPPER(STRT),'\\.','')
+                                REGEXP_REPLACE(UPPER(
+                                  CONCAT(
+                                    STRT
+                                    , CASE WHEN TRIM(STRT2) != '' 
+                                      THEN CONCAT(' # ', STRT2) ELSE '' END
+                                  )
+                                ),'\\.','')
                                 , r"#", ' # ')
                               , ',', ' ')
 
