@@ -228,7 +228,11 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING) AS
                           REGEXP_REPLACE(REGEXP_REPLACE(
                           REGEXP_REPLACE(REGEXP_REPLACE(
 
-                            REGEXP_REPLACE(REGEXP_REPLACE(UPPER(STRT), r"#", ' # '), ',', ' ')
+                            REGEXP_REPLACE(
+                              REGEXP_REPLACE(
+                                REGEXP_REPLACE(UPPER(STRT),'\\.','')
+                                , r"#", ' # ')
+                              , ',', ' ')
 
                           -- Note, there is currently a bug in GCP where
                           -- this will not work if there are two side by side
