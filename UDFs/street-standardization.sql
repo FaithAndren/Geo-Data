@@ -233,8 +233,12 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
                                 REGEXP_REPLACE(UPPER(
                                   CONCAT(
                                     STRT
-                                    , CASE WHEN TRIM(STRT2) != '' 
-                                      THEN CONCAT(' # ', STRT2) ELSE '' END
+                                    , CASE 
+                                        WHEN REGEXP_CONTAINS(TRIM(STRT2), '^[0-9]+') 
+                                          THEN CONCAT(' # ', STRT2)
+                                        WHEN TRIM(STRT2) != '' 
+                                          THEN CONCAT(' ', STRT2)
+                                      ELSE '' END
                                   )
                                 ),'\\.','')
                                 , r"#", ' # ')
