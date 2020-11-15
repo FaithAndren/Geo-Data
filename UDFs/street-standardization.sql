@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS 
 (
   ( /*
@@ -61,26 +62,26 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
                   , ('DEPT', ['DEPARTMENT', 'DEPARTAMENTO'])
                   
                 -- Numbers
-                  , ('1ST', ['FIRST', 'PRIMERA', 'PRIMERO'])
-                  , ('2ND', ['SECOND', 'SEGUNDA', 'SEGUNDO'])
-                  , ('3RD', ['THIRD', 'TERCERA', 'TERCERO'])
-                  , ('4TH', ['FOURTH', 'CUARTA', 'CUARTO'])
-                  , ('5TH', ['FIFTH', 'QUINTA', 'QUINTO'])
-                  , ('6TH', ['SIXTH', 'SEXTA', 'SEXTO'])
-                  , ('7TH', ['SEVENTH','SEPTIMA', 'SEPTIMO'])
-                  , ('8TH', ['EIGHTH', 'OCTAVA', 'OCTAVO'])
-                  , ('9TH', ['NINTH', 'NOVENA', 'NOVENO'])
-                  , ('10TH', ['TENTH', 'DECIMA', 'DECIMO'])
-                  , ('11TH', ['ELEVENTH', 'UNDECIMA', 'UNDECIMO'])
-                  , ('12TH', ['TWELFTH', 'DUODECIMA', 'DUODECIMO'])
-                  , ('13TH', ['THIRTEENTH', 'DECIMOTERCERA', 'DECIMOTERCERO'])
-                  , ('14TH', ['FOURTEENTH', 'DECIMOCUARTA', 'DECIMOCUARTO'])
-                  , ('15TH', ['FIFTEENTH', 'DECIMOQUINTA', 'DECIMOQUINTO'])
-                  , ('16TH', ['SIXTEENTH', 'DECIMOSEXTA', 'DECIMOSEXTO'])
-                  , ('17TH', ['SEVENTEENTH', 'DECIMOSEPTIMA', 'DECIMOSEPTIMO'])
-                  , ('18TH', ['EIGHTEENTH', 'DECIMOCTAVA', 'DECIMOCTAVO'])
-                  , ('19TH', ['NINETEENTH', 'DECIMONOVENA', 'DECIMONOVENO'])
-                  , ('20TH', ['TWENTIETH', 'VIGESIMA', 'VIGESIMO'])
+                  , ('1', ['ONE']), ('1ST', ['FIRST', 'PRIMERA', 'PRIMERO'])
+                  , ('2', ['TWO']) , ('2ND', ['SECOND', 'SEGUNDA', 'SEGUNDO'])
+                  , ('3', ['THREE']) , ('3RD', ['THIRD', 'TERCERA', 'TERCERO'])
+                  , ('4', ['FOUR']) , ('4TH', ['FOURTH', 'CUARTA', 'CUARTO'])
+                  , ('5', ['FIVE']) , ('5TH', ['FIFTH', 'QUINTA', 'QUINTO'])
+                  , ('6', ['SIX']) , ('6TH', ['SIXTH', 'SEXTA', 'SEXTO'])
+                  , ('7', ['SEVEN']) , ('7TH', ['SEVENTH','SEPTIMA', 'SEPTIMO'])
+                  , ('8', ['EIGHT']) , ('8TH', ['EIGHTH', 'OCTAVA', 'OCTAVO'])
+                  , ('9', ['NINE']) , ('9TH', ['NINTH', 'NOVENA', 'NOVENO'])
+                  , ('10', ['TEN']) , ('10TH', ['TENTH', 'DECIMA', 'DECIMO'])
+                  , ('11', ['ELEVEN']) , ('11TH', ['ELEVENTH', 'UNDECIMA', 'UNDECIMO'])
+                  , ('12', ['TWELVE']) , ('12TH', ['TWELFTH', 'DUODECIMA', 'DUODECIMO'])
+                  , ('13', ['THIRTEEN']) , ('13TH', ['THIRTEENTH', 'DECIMOTERCERA', 'DECIMOTERCERO'])
+                  , ('14', ['FOURTEEN']) , ('14TH', ['FOURTEENTH', 'DECIMOCUARTA', 'DECIMOCUARTO'])
+                  , ('15', ['FIFTEEN']) , ('15TH', ['FIFTEENTH', 'DECIMOQUINTA', 'DECIMOQUINTO'])
+                  , ('16', ['SIXTEEN']) , ('16TH', ['SIXTEENTH', 'DECIMOSEXTA', 'DECIMOSEXTO'])
+                  , ('17', ['SEVENTEEN']) , ('17TH', ['SEVENTEENTH', 'DECIMOSEPTIMA', 'DECIMOSEPTIMO'])
+                  , ('18', ['EIGHTEEN']) , ('18TH', ['EIGHTEENTH', 'DECIMOCTAVA', 'DECIMOCTAVO'])
+                  , ('19', ['NINETEEN']) , ('19TH', ['NINETEENTH', 'DECIMONOVENA', 'DECIMONOVENO'])
+                  , ('20', ['TWENTY']) , ('20TH', ['TWENTIETH', 'VIGESIMA', 'VIGESIMO'])
 
                 -- Street Suffixes
                 -- https://pe.usps.com/text/pub28/28apc_002.htm
@@ -290,4 +291,3 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
       FROM TKN2
   )
 );
-
