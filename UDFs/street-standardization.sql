@@ -5,22 +5,22 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
     This UDF standardizes the address street field(s), line 1 and line 2,
     to increase match rate when joining postal address data from
     two different sources.
-	  
-    TWO INPUTS: 
+
+    TWO INPUTS:
       ADDR_LINE_1
       , ADDR_LINE_2 ('' if none)
-	  
+
     Note:
       This does not use all of the standardization rules
       laid out by the usps, so it should **not** be used
       as a mailing address. It's only meant to join addresses
       from two different sources together.
-	  
+
       E.g.:
         We abbreviate all directionals and suffixes which is not how to
         properly standardize addresses.
       */
-      WITH 
+      WITH
         SFX AS
           ( SELECT
               CAST(t AS STRUCT<f0_ STRING, f1_ ARRAY<STRING>>).f0_ ABBR
@@ -42,13 +42,13 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
 
                 -- Secondary Unit Designators
                 -- https://pe.usps.com/text/pub28/28apc_003.htm
-                  , ('#', 
+                  , ('#',
                       [ 'APARTMENT', 'APT', 'APARTAMENTO', 'NUM'
                         , 'NUMBER', 'PMB' -- Private Mailbox Number
                         , 'ROOM', 'RM', 'SUITE', 'STE', 'UNIT', 'NBR'
-		        , 'CONDO', 'CONDOMINIUM', 'UNT'
+                        , 'CONDO', 'CONDOMINIUM', 'UNT'
                       ]
-                    )    
+                    )
                   , ('BLDG', ['BUILDING'])
                   , ('FL', ['FLOOR', 'FLR'])
                   , ('HNGR', ['HANGER'])
@@ -61,7 +61,7 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
                   , ('SPC', ['SPACE'])
                   , ('OFC', ['OFFICE'])
                   , ('DEPT', ['DEPARTMENT', 'DEPARTAMENTO'])
-                  
+
                 -- Numbers
                   , ('1', ['ONE']), ('1ST', ['FIRST', 'PRIMERA', 'PRIMERO'])
                   , ('2', ['TWO']) , ('2ND', ['SECOND', 'SEGUNDA', 'SEGUNDO'])
@@ -99,13 +99,13 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
                   , ('BLVD', ['BOUL', 'BOULEVARD', 'BOULV'])
                   , ('BR', ['BRNCH', 'BRANCH']), ('BRG', ['BRDGE', 'BRIDGE'])
                   , ('BRK', ['BROOK']), ('BRKS', ['BROOKS']), ('BG', ['BURG'])
-                  , ('BGS', ['BURGS']), ('BYP', ['BYPA', 'BYPAS', 'BYPASS', 'BYPS'])         
+                  , ('BGS', ['BURGS']), ('BYP', ['BYPA', 'BYPAS', 'BYPASS', 'BYPS'])
                   , ('CIR', ['CIRC', 'CIRCL', 'CIRCLE', 'CRCL', 'CRCLE', 'CIRCULO'])
                   , ('CIRS', ['CIRCLES']), ('CLB', ['CLUB']), ('CLF', ['CLIFF'])
                   , ('CLFS', ['CLIFFS']), ('CLL', ['CALLE']), ('CMN', ['COMMON'])
                   , ('CMNS', ['COMMONS']), ('CMT', ['CAMINITO'])
-                  , ('COR', ['CORNER']), ('CER', ['CERRADA']), ('CORS', ['CORNERS'])         
-                  , ('CP', ['CAMP', 'CMP']), ('CPE', ['CAPE'])       
+                  , ('COR', ['CORNER']), ('CER', ['CERRADA']), ('CORS', ['CORNERS'])
+                  , ('CP', ['CAMP', 'CMP']), ('CPE', ['CAPE'])
                   , ('CRES', ['CRESCENT', 'CRSENT', 'CRSNT']), ('CRK', ['CREEK'])
                   , ('CRSE', ['COURSE']), ('CRST', ['CREST'])
                   , ('CSWY', ['CAUSEWAY', 'CAUSWA']), ('CT', ['COURT'])
@@ -114,7 +114,7 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
                   , ('CV', ['COVE']), ('CVS', ['COVES']), ('CYN', ['CANYN', 'CANYON', 'CNYN'])
                   , ('DL', ['DALE']), ('DM', ['DAM']), ('DR', ['DRIV', 'DRIVE', 'DRV'])
                   , ('DRS', ['DRIVES']), ('DV', ['DIV', 'DIVIDE', 'DVD'])
-                  , ('ENT', ['ENTRADA']), ('EST', ['ESTATE', 'ESTANCIAS'])          
+                  , ('ENT', ['ENTRADA']), ('EST', ['ESTATE', 'ESTANCIAS'])
                   , ('EXPY', ['EXP', 'EXPR', 'EXPRESS', 'EXPRESSWAY', 'EXPW'])
                   , ('EXT', ['EXTENSION', 'EXTN', 'EXTNSN']), ('FLD', ['FIELD'])
                   , ('EXTS', ['EXTENSIONS']), ('ESTS', ['ESTATES'])
@@ -174,7 +174,7 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
                   , ('TER', ['TERR', 'TERRACE', 'TERRAZA'])
                   , ('TPKE', ['TRNPK', 'TURNPIKE', 'TURNPK'])
                   , ('TRAK', ['TRACK', 'TRACKS', 'TRK', 'TRKS'])
-                  , ('TRCE', ['TRACE', 'TRACES']), ('TRFY', ['TRAFFICWAY'])        
+                  , ('TRCE', ['TRACE', 'TRACES']), ('TRFY', ['TRAFFICWAY'])
                   , ('TRL', ['TRAIL', 'TRAILS', 'TRLS']), ('TRLR', ['TRAILER', 'TRLRS'])
                   , ('TUNL', ['TUNEL', 'TUNLS', 'TUNNEL', 'TUNNELS', 'TUNNL'])
                   , ('UN', ['UNION']), ('TRWY', ['THROUGHWAY']), ('UNS', ['UNIONS'])
@@ -198,14 +198,14 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
                   , ('PLA', ['PLACITA']), ('RCH', ['RANCHO'])
                   , ('VER', ['VEREDA']), ('BL', ['BLOQUE']), ('VIL', ['VILLA'])
                   , ('CAS', ['CASERIO']), ('CORP', ['CORPORACION'])
-                  , ('HOSP', ['HOSPITAL']), ('IND', ['INDUSTRIAL'])     
+                  , ('HOSP', ['HOSPITAL']), ('IND', ['INDUSTRIAL'])
               ]) t
           )
         , SFX2 AS
-          ( SELECT 
+          ( SELECT
               PRE
               , ABBR POST
-            FROM 
+            FROM
               SFX
               , UNNEST(ARRAY_CONCAT([ABBR],ALTS)) PRE
           )
@@ -216,7 +216,7 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
             FROM
               UNNEST(
                 SPLIT(
-                
+
                   REGEXP_REPLACE(
                     TRIM(
                       REGEXP_REPLACE(
@@ -290,7 +290,7 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
 
                       , r'[^A-Z0-9#\-\\/\(\) &]', '')
                     ), r'[\s][\s]+', ' ')
-                    
+
                 , " ")
               ) TOKEN WITH OFFSET
           )
@@ -303,16 +303,16 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
               ON A.TOKEN = B.PRE
           )
       SELECT
-   	REGEXP_EXTRACT(
-	  REGEXP_REPLACE(
-	    REGEXP_REPLACE(
-	      STRING_AGG(
-		  CASE WHEN POST IS NOT NULL THEN POST ELSE TOKEN END
-		  , ' ' ORDER BY OFST
-	        )
-	      , r'(# )+', r'# ')
-	    , r'( )?#( )?$', r'')
-   	  , '.{1,}')
+        REGEXP_EXTRACT(
+          REGEXP_REPLACE(
+            REGEXP_REPLACE(
+              STRING_AGG(
+                CASE WHEN POST IS NOT NULL THEN POST ELSE TOKEN END
+                , ' ' ORDER BY OFST
+              )
+            , r'( #)+', r' #')
+          , r'( )?#$', r'')
+         , '.{1,}')
       FROM TKN2
   )
 );
