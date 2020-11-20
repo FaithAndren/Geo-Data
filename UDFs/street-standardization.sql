@@ -278,16 +278,16 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
               ON A.TOKEN = B.PRE
           )
       SELECT
-        --REGEXP_REPLACE(
-        REGEXP_REPLACE(
-          REGEXP_REPLACE(
-            STRING_AGG(
-                CASE WHEN POST IS NOT NULL THEN POST ELSE TOKEN END
-                , ' ' ORDER BY OFST
-              )
-            , r'( #)+', r' #')
-          , r'( )?#$', r'')
-          --, r'[\s][\s]+', ' ')
+   	REGEXP_EXTRACT(
+	  REGEXP_REPLACE(
+	    REGEXP_REPLACE(
+	      STRING_AGG(
+		  CASE WHEN POST IS NOT NULL THEN POST ELSE TOKEN END
+		  , ' ' ORDER BY OFST
+	        )
+	      , r'(# )+', r'# ')
+	    , r'( )?#( )?$', r'')
+   	  , '.{1,}')
       FROM TKN2
   )
 );
