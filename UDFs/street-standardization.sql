@@ -46,7 +46,7 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
                       [ 'APARTMENT', 'APT', 'APARTAMENTO', 'NUM'
                         , 'NUMBER', 'PMB' -- Private Mailbox Number
                         , 'ROOM', 'RM', 'SUITE', 'STE', 'UNIT', 'NBR'
-		        , 'CONDO', 'CONDOMINIUM'
+		        , 'CONDO', 'CONDOMINIUM', 'UNT'
                       ]
                     )    
                   , ('BLDG', ['BUILDING'])
