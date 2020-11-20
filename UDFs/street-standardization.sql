@@ -46,10 +46,11 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
                       [ 'APARTMENT', 'APT', 'APARTAMENTO', 'NUM'
                         , 'NUMBER', 'PMB' -- Private Mailbox Number
                         , 'ROOM', 'RM', 'SUITE', 'STE', 'UNIT', 'NBR'
+		        , 'CONDO', 'CONDOMINIUM'
                       ]
                     )    
                   , ('BLDG', ['BUILDING'])
-                  , ('FL', ['FLOOR'])
+                  , ('FL', ['FLOOR', 'FLR'])
                   , ('HNGR', ['HANGER'])
                   , ('BSMT', ['BASEMENT'])
                   , ('LBBY', ['LOBBY'])
@@ -229,23 +230,47 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
                           REGEXP_REPLACE(REGEXP_REPLACE(
                           REGEXP_REPLACE(REGEXP_REPLACE(
 
-                            REGEXP_REPLACE(
+                            REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(
+                            REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(
+                            REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(
+                            REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(
+
                               REGEXP_REPLACE(
                                 REGEXP_REPLACE(
-                                  REGEXP_REPLACE(UPPER(
-                                    CONCAT(
-                                      STRT
-                                      , CASE 
-                                          WHEN REGEXP_CONTAINS(TRIM(STRT2), '^[0-9]+') 
-                                            THEN CONCAT(' # ', STRT2)
-                                          WHEN TRIM(STRT2) != '' 
-                                            THEN CONCAT(' ', STRT2)
-                                        ELSE '' END
-                                    )
-                                  ),'\\.','')
-                                , r"#", ' # ')
-                              , ',', ' ')
-                            , r'[\s][\s]+', ' ')
+                                  REGEXP_REPLACE(
+                                    REGEXP_REPLACE(UPPER(
+                                      CONCAT(
+                                        STRT
+                                        , CASE
+                                            WHEN REGEXP_CONTAINS(UPPER(TRIM(STRT2))
+                                                , '^[0-9]+([A-Z]{1})?( |$|-)|^([A-Z]{1})( |$|[0-9]+|-)')
+                                              THEN CONCAT(' # ', STRT2)
+                                            WHEN TRIM(STRT2) != ''
+                                              THEN CONCAT(' ', STRT2)
+                                          ELSE '' END
+                                      )
+                                    ),'\\.','')
+                                  , r"#|NUMBER", ' # ')
+                                , ',', ' ')
+                              , r'[\s][\s]+', ' ')
+
+
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?0', ' # 0')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?1', ' # 1')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?2', ' # 2')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?3', ' # 3')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?4', ' # 4')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?5', ' # 5')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?6', ' # 6')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?7', ' # 7')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?8', ' # 8')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?9', ' # 9')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?A( |$)', ' # A ')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?B( |$)', ' # B ')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?C( |$)', ' # C ')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?D( |$)', ' # D ')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?E( |$)', ' # E ')
+                            , ' (APT|UN(I)?T|STE|SUITE(S)|R(OO)?M|NBR)(-)?F( |$)', ' # F ')
 
                           -- Note, there is currently a bug in GCP where
                           -- this will not work if there are two side by side
