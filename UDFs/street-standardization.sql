@@ -311,8 +311,8 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
                 , ' ' ORDER BY OFST
               )
             , r'( #)+', r' #')
-          , r'( )?#$', r'')
-         , '.{1,}')
+          , r'( )?#( )?$', r'')
+        , '.{1,}')
       FROM TKN2
   )
 );
