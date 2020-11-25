@@ -302,17 +302,58 @@ CREATE OR REPLACE FUNCTION `prj.ds.udf_strt_std`(STRT STRING, STRT2 STRING) AS
             LEFT JOIN SFX2 B
               ON A.TOKEN = B.PRE
           )
-      SELECT
-        REGEXP_EXTRACT(
-          REGEXP_REPLACE(
-            REGEXP_REPLACE(
-              STRING_AGG(
-                CASE WHEN POST IS NOT NULL THEN POST ELSE TOKEN END
-                , ' ' ORDER BY OFST
-              )
-            , r'( #)+', r' #')
-          , r'( )?#( )?$', r'')
-        , '.{1,}')
-      FROM TKN2
-  )
+        , STREET AS
+          ( SELECT
+                REGEXP_REPLACE(
+                  REGEXP_REPLACE(
+                    STRING_AGG(
+                      CASE WHEN POST IS NOT NULL THEN POST ELSE TOKEN END
+                      , ' ' ORDER BY OFST
+                    )
+                  , r'( #)+', r' #')
+                , r'( )?#( )?$', '') ST
+            FROM TKN2
+          )
+        , STREET2 AS
+          ( SELECT
+              -- Moving unit numbers that are before street to after street
+              COALESCE(
+                CASE WHEN
+                    REGEXP_CONTAINS(
+                      REGEXP_EXTRACT(ST, r'^(# [0-9A-Z]+) [0-9].*[A-Z]')
+                      , '^# (([0-9]+)?([A-Z]){1}|.*[0-9]+.*)$')
+                  THEN
+                    CONCAT(
+                      REGEXP_EXTRACT(ST, r'^# [0-9A-Z]+ (.*)$')
+                      , ' ', REGEXP_EXTRACT(ST, r'^(# [0-9A-Z]+) [0-9].*[A-Z]')
+                    )
+                  ELSE NULL END
+                , ST
+              ) ST
+            FROM STREET
+          )
+          SELECT
+            REGEXP_EXTRACT(
+              TRIM(REGEXP_REPLACE(
+                COALESCE(
+                  CASE WHEN ST LIKE '%#%'
+                    THEN
+                    -- remove duplicated unit numbers
+                    -- (only does one distinct dup, but you could iterate to cover all)
+                      ( SELECT
+                          REGEXP_REPLACE(
+                            ST
+                            , CONCAT('((^| )',SPLIT(X, '# ')[SAFE_OFFSET(1)]
+                              , ' )?(', X, '( |$))+')
+                            , CONCAT(' ', X, ' ')
+                          )
+                        FROM
+                          ( SELECT REGEXP_EXTRACT(ST, '(# [A-Z0-9 ]+)(?: #|$)') X)
+                      )
+                    ELSE NULL END
+                    , ST)
+                , r'[\s][\s]+', ' '))
+              , '.{1,}')
+          FROM STREET2
+      )
 );
