@@ -1,6 +1,5 @@
 # Geographical Data
 
-<meta name="google-site-verification" content="km6XuiEMpJzwuZRNcKAnOwI-EKSDxFZ0L2WP5-jDA7I" />
 
 Repository containing information on using geographical data.
 
