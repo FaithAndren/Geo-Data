@@ -32,6 +32,7 @@ Walks through U.S. Census Bureau Data.
 * [Geocoding Addresses](https://github.com/ElyseAndren/Geo-Data/wiki/Census-Data#geocoding-addresses)
 
 ***
+
 ### [Hurricane Data](https://github.com/ElyseAndren/Geo-Data/wiki/Hurricane-Data) 
 
 Walks through how to create a table that will enable you to analyze customer behavior pre/post major storm activity.
@@ -41,3 +42,8 @@ Walks through how to create a table that will enable you to analyze customer beh
 * [Source Data](https://github.com/ElyseAndren/Geo-Data/wiki/Hurricane-Data#source-data)
 * [Process](https://github.com/ElyseAndren/Geo-Data/wiki/Hurricane-Data#process)
 
+
+***
+<!--
+Faith Andren
+--->
