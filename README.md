@@ -10,8 +10,6 @@ See [wiki](https://github.com/ElyseAndren/Geo-Data/wiki) for walk-throughs (list
 
 BigQuery User Defined Functions (UDFs) for geo processes.
 
-* [Street Standardization](https://github.com/ElyseAndren/Geo-Data/wiki/UDFs#address-standardization)
-* [Zip Cleansing](https://github.com/ElyseAndren/Geo-Data/wiki/UDFs#address-standardization)
 * [Generate Coordinate Linestring](https://github.com/ElyseAndren/Geo-Data/wiki/UDFs#generate-coordinate-linestring)
 * [Calculate Bearing](https://github.com/ElyseAndren/Geo-Data/wiki/UDFs#bearing)
 
